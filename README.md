@@ -3,8 +3,9 @@
 
 install opencv
 
+`
 pip install opencv-python
-
+`
 
 # Object detection
 
@@ -30,7 +31,9 @@ cd path\to\models\research
 
 Execute the protobuf compile
 
+`
 “C:\protoc-3.x.0-win32\bin\protoc.exe” object_detection/protos/*.proto --python_out=.
+`
 
 .py files will be generated in the object_detection/protos/ folder
 
