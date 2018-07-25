@@ -151,16 +151,19 @@ with detection_graph.as_default():
             boxes, scores, classes, num_detections = sess.run(
                 [boxes, scores, classes, num_detections], feed_dict={image_tensor: image_np_expanded})
 
+            # print detected objects
+            display_str = ''
             np_classes = np.squeeze(classes)
-            for i in range(boxes.shape[0]):
+            for i in range(int(num_detections[0])):
                 if np.squeeze(scores)[i] > 0:
-                    display_str = ''
+
                     if np_classes[i] in category_index.keys():
                         class_name = category_index[np_classes[i]]['name']
                     else:
                         class_name = 'N/A'
-                    display_str = str(class_name)
-                    print(display_str)
+                    display_str = display_str + '  ' + str(class_name)
+            print(display_str)
+            print(num_detections)
 
 
             # Visualization of the results of a detection
