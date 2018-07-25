@@ -146,9 +146,22 @@ with detection_graph.as_default():
             classes = detection_graph.get_tensor_by_name('detection_classes:0')
             num_detections = detection_graph.get_tensor_by_name('num_detections:0')
 
+
             # Actual detection.
             boxes, scores, classes, num_detections = sess.run(
                 [boxes, scores, classes, num_detections], feed_dict={image_tensor: image_np_expanded})
+
+            np_classes = np.squeeze(classes)
+            for i in range(boxes.shape[0]):
+                if np.squeeze(scores)[i] > 0:
+                    display_str = ''
+                    if np_classes[i] in category_index.keys():
+                        class_name = category_index[np_classes[i]]['name']
+                    else:
+                        class_name = 'N/A'
+                    display_str = str(class_name)
+                    print(display_str)
+
 
             # Visualization of the results of a detection
             vis_util.visualize_boxes_and_labels_on_image_array(
